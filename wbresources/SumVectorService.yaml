@@ -1,0 +1,68 @@
+# This file defines Suunto Whiteboard API for SumVector Joni Service
+#
+swagger: '2.0'
+
+# Document metadata
+info:
+  version: "0.1.0"
+  title: API for /Exercise/Sumvector/Joni 
+  description: |
+    This file defines API for Movesense Accelerometer Sumvector Joni service
+  termsOfService: http://suunto.com/wbapi/terms/
+  contact:
+    name: Joni Korhonen
+    url: https://github.com/jontte75
+
+# Paths
+paths:
+  /Exercise/Sumvector/Joni/Subscription:
+    post:
+      description: |
+        Subscribe to periodic 1s average of acceleration sum vector.
+      responses:
+        200:
+          description: Operation completed successfully
+        x-std-errors:
+          description: See common error codes http://developer.suunto.com/api/std-errors#subscribe
+        x-notification:
+          description: New value
+          schema:
+            $ref: '#/definitions/SumVectorAverageData'
+    delete:
+      description: |
+        Unsubscribe from sample data values.
+      responses:
+        200:
+          description: Operation completed successfully
+        x-std-errors:
+          description: See common error codes http://developer.suunto.com/api/std-errors#unsubscribe
+
+definitions:
+  SumVectorAverageData:
+    required:
+      - RelativeTime
+      - SumVector
+    properties:
+      RelativeTime:
+        description: Relative time of measurement
+        type: integer
+        format: uint32
+        x-unit: millisecond
+      SumVector:
+        description: Average sum vector
+        $ref: '#/definitions/AvVector'
+  AvVector:
+    required:
+    - x
+    - y
+    - z
+    properties:
+      x:
+        type: number
+        format: float
+      y:
+        type: number
+        format: float
+      z:
+        type: number
+        format: float
