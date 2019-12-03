@@ -96,7 +96,7 @@ wb::Result SumVectorService::startRunning(wb::RequestId& remoteRequestId)
     wb::Result result = getResource(ACC_PATH_WITH_SAMPLERATE, mMeasAccResourceId);
     if (!wb::RETURN_OKC(result))
     {
-		DEBUGLOG("JKo: not ok: %u", result);
+		DEBUGLOG("Getting resource failed: %u", result);
         return result;
     }
 
